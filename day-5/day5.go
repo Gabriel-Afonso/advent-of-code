@@ -24,11 +24,12 @@ func main() {
 	crates := make([][]rune, 0)
 	moves := make([]Move, 10)
 
+	// parse file
 	for _, line := range lines {
 		if len(line) > 0 {
 			switch []rune(line)[0] {
 			case '[':
-				// create and fill stack
+				// create and fill stacks
 				for j := 0; j <= len(line)/4; j++ {
 					symbol := []rune(line)[j*4+1]
 					if len(crates) <= j {
@@ -78,9 +79,7 @@ func part1(crates [][]rune, moves []Move) [][]rune {
 func part2(crates [][]rune, moves []Move) [][]rune {
 	for _, m := range moves {
 		// push to new stack
-		newSlice := make([]rune, m.amount)
-		copy(newSlice, crates[m.fromStack][:m.amount])
-		crates[m.toStack] = append(newSlice, crates[m.toStack]...)
+		crates[m.toStack] = append(crates[m.fromStack][:m.amount:m.amount], crates[m.toStack]...)
 		// pop from current stack
 		crates[m.fromStack] = crates[m.fromStack][m.amount:]
 	}

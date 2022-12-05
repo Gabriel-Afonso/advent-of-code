@@ -16,28 +16,30 @@ func main() {
 	lines := strings.Split(string(dat), "\n")
 
 	// part 1
-	symbols := make(map[string]int)
-	symbols["A X"] = 4
-	symbols["A Y"] = 8
-	symbols["A Z"] = 3
-	symbols["B X"] = 1
-	symbols["B Y"] = 5
-	symbols["B Z"] = 9
-	symbols["C X"] = 7
-	symbols["C Y"] = 2
-	symbols["C Z"] = 6
+	symbols := map[string]int{
+		"A X": 4,
+		"A Y": 8,
+		"A Z": 3,
+		"B X": 1,
+		"B Y": 5,
+		"B Z": 9,
+		"C X": 7,
+		"C Y": 2,
+		"C Z": 6,
+	}
 
 	// part 2
-	symbols2 := make(map[string]int, 9)
-	symbols2["A X"] = 3
-	symbols2["A Y"] = 4
-	symbols2["A Z"] = 8
-	symbols2["B X"] = 1
-	symbols2["B Y"] = 5
-	symbols2["B Z"] = 9
-	symbols2["C X"] = 2
-	symbols2["C Y"] = 6
-	symbols2["C Z"] = 7
+	symbols2 := map[string]int{
+		"A X": 3,
+		"A Y": 4,
+		"A Z": 8,
+		"B X": 1,
+		"B Y": 5,
+		"B Z": 9,
+		"C X": 2,
+		"C Y": 6,
+		"C Z": 7,
+	}
 
 	result := 0
 	result2 := 0
