@@ -13,7 +13,7 @@ func main() {
 	}
 
 	for _, distinct := range [2]int{4, 14} {
-		for cursor := 0; cursor < len(dat)-3; {
+		for cursor := 0; cursor < len(dat)-distinct-1; {
 			next := checkSection(dat, cursor, distinct)
 			cursor += next
 			if next == 0 {
@@ -25,12 +25,12 @@ func main() {
 }
 
 func checkSection(dat []byte, c int, sectionBits int) int {
-	for i := 0; i < sectionBits-1; i++ {
-		for j := i + 1; j < sectionBits; j++ {
-			if dat[c+i] == dat[c+j] {
-				return i + 1
-			}
+	contains := make(map[byte]int, sectionBits)
+	for i := 0; i < sectionBits; i++ {
+		if contains[dat[c+i]] != 0 {
+			return contains[dat[c+i]]
 		}
+		contains[dat[c+i]] = i + 1
 	}
 	return 0
 }
