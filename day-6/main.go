@@ -12,25 +12,14 @@ func main() {
 		panic(err)
 	}
 
-	// part 1
-	distinctCount := 4
-	for cursor := 0; cursor < len(dat)-3; {
-		next := checkSection(dat, cursor, distinctCount)
-		cursor += next
-		if next == 0 {
-			fmt.Println(cursor + distinctCount)
-			break
-		}
-	}
-
-	// part 2
-	distinctCount = 14
-	for cursor := 0; cursor < len(dat)-3; {
-		next := checkSection(dat, cursor, distinctCount)
-		cursor += next
-		if next == 0 {
-			fmt.Println(cursor + distinctCount)
-			break
+	for _, distinct := range [2]int{4, 14} {
+		for cursor := 0; cursor < len(dat)-3; {
+			next := checkSection(dat, cursor, distinct)
+			cursor += next
+			if next == 0 {
+				fmt.Println(cursor + distinct)
+				break
+			}
 		}
 	}
 }
