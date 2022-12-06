@@ -13,17 +13,24 @@ func main() {
 		panic(err)
 	}
 
-	start := time.Now()
 	result1, result2 := 0, 0
-	for i := 0; i < 1000; i++ {
+
+	start := time.Now()
+	for i := 0; i < 10000; i++ {
 		result1 = solve(input, 4)
+	}
+	elapsed1 := time.Since(start) / 10000
+
+	start = time.Now()
+	for i := 0; i < 10000; i++ {
 		result2 = solve(input, 14)
 	}
-	elapsed := time.Since(start) / 1000
+	elapsed2 := time.Since(start) / 10000
 
 	fmt.Println(result1)
+	fmt.Println(elapsed1)
 	fmt.Println(result2)
-	fmt.Println(elapsed)
+	fmt.Println(elapsed2)
 }
 
 func solve(arr []byte, markerLen int) int {
