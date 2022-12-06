@@ -27,14 +27,14 @@ func main() {
 }
 
 func solve(arr []byte, markerLen int) int {
-	symbol := make(map[byte]int, 26)
+	symbol := [26]int{}
 	anchor, i := 0, 0
 	for ; i-anchor != markerLen && anchor < len(arr)-markerLen-1; i++ {
-		lastSymbolPos := symbol[arr[i]]
+		lastSymbolPos := symbol[arr[i]-97]
 		if lastSymbolPos != 0 && lastSymbolPos >= anchor {
 			anchor = lastSymbolPos + 1
 		}
-		symbol[arr[i]] = i
+		symbol[arr[i]-97] = i
 	}
 	return i
 }
