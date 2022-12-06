@@ -12,19 +12,20 @@ func main() {
 		panic(err)
 	}
 
-	for _, distinct := range [2]int{4, 14} {
-	outer:
-		for c := 0; c < len(dat)-distinct-1; {
-			contains := make(map[byte]int, distinct)
-			for i := 0; i < distinct; i++ {
-				if contains[dat[c+i]] != 0 {
-					c += contains[dat[c+i]]
-					continue outer
-				}
-				contains[dat[c+i]] = i + 1
-			}
-			fmt.Println(c + distinct)
-			break
+	fmt.Println(solve(dat, 4))
+	fmt.Println(solve(dat, 14))
+}
+
+func solve(dat []byte, distinctSymbolCount int) int {
+	contains := make(map[byte]int, 26)
+	startI, endI := 0, 0
+	for ; endI-startI != distinctSymbolCount && startI < len(dat)-distinctSymbolCount-1; endI++ {
+		lastSymbolPos := contains[dat[endI]]
+		contains[dat[endI]] = endI
+		if lastSymbolPos != 0 && lastSymbolPos >= startI {
+			startI = lastSymbolPos + 1
+			continue
 		}
 	}
+	return endI
 }
