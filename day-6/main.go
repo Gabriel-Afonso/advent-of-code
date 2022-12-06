@@ -3,29 +3,38 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 )
 
 func main() {
-	dat, err := os.ReadFile("day6.txt")
+	input, err := os.ReadFile("day6.txt")
 
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(solve(dat, 4))
-	fmt.Println(solve(dat, 14))
+	start := time.Now()
+	result1, result2 := 0, 0
+	for i := 0; i < 1000; i++ {
+		result1 = solve(input, 4)
+		result2 = solve(input, 14)
+	}
+	elapsed := time.Since(start) / 1000
+
+	fmt.Println(result1)
+	fmt.Println(result2)
+	fmt.Println(elapsed)
 }
 
-func solve(dat []byte, distinctSymbolCount int) int {
-	contains := make(map[byte]int, 26)
-	startI, endI := 0, 0
-	for ; endI-startI != distinctSymbolCount && startI < len(dat)-distinctSymbolCount-1; endI++ {
-		lastSymbolPos := contains[dat[endI]]
-		contains[dat[endI]] = endI
-		if lastSymbolPos != 0 && lastSymbolPos >= startI {
-			startI = lastSymbolPos + 1
-			continue
+func solve(arr []byte, markerLen int) int {
+	symbol := make(map[byte]int, 26)
+	anchor, i := 0, 0
+	for ; i-anchor != markerLen && anchor < len(arr)-markerLen-1; i++ {
+		lastSymbolPos := symbol[arr[i]]
+		if lastSymbolPos != 0 && lastSymbolPos >= anchor {
+			anchor = lastSymbolPos + 1
 		}
+		symbol[arr[i]] = i
 	}
-	return endI
+	return i
 }
