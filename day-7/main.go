@@ -32,7 +32,7 @@ func main() {
 		case "$ ls":
 		case "dir ":
 		case "$ cd":
-			if len(line) > 6 && line[5:7] == ".." {
+			if line[5:7] == ".." {
 				currentDir = currentDir.parent
 			} else {
 				newNode := &Node{parent: currentDir}
@@ -47,8 +47,8 @@ func main() {
 	}
 	calcDirSize(rootNode)
 
-	fmt.Println(part1(rootNode, atMost))
-	fmt.Println(part2(rootNode, fit-(space-rootNode.size)))
+	fmt.Println(solve1(rootNode, atMost))
+	fmt.Println(solve2(rootNode, fit-(space-rootNode.size)))
 }
 
 func calcDirSize(node *Node) {
@@ -58,7 +58,7 @@ func calcDirSize(node *Node) {
 	}
 }
 
-func part2(node *Node, fit int) int {
+func solve2(node *Node, fit int) int {
 	bucket := node.size
 	findFit(node, fit, &bucket)
 	return bucket
@@ -73,7 +73,7 @@ func findFit(node *Node, fit int, bucket *int) {
 	}
 }
 
-func part1(node *Node, atMost int) int {
+func solve1(node *Node, atMost int) int {
 	bucket := 0
 	traversAndCollect(node, atMost, &bucket)
 	return bucket
